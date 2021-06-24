@@ -9,6 +9,12 @@ use App\Models\Category;
 class CategoryController extends Controller
 
 {
+    public function getCategories()
+    {
+        $categories=Category::first()->posts;
+       // dd(Category::first()->posts()->get());
+       return response()->json(['categories'=>Category::first()->posts()->get()],200);
+    }
     public function createCategory()
     {
         $validation=Validator::make(request()->all(),[

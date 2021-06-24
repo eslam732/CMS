@@ -18,6 +18,7 @@ class PostController extends Controller
             "content" => "required",
             "description" => "required",
             "image" => "required",
+            'category_id'=>'required'
         );
         $validator = Validator::make(request()->all(), $rules);
         if ($validator->fails()) {
@@ -37,6 +38,7 @@ class PostController extends Controller
             'description' => $allData['description'],
             'content' => $allData['content'],
             'image' => $image,
+            'category_id'=>$allData['category_id']
             
 
         ]);
@@ -56,6 +58,7 @@ class PostController extends Controller
             "description" => "required",
             "content" => "required",
             "description" => "required",
+            'category_id'=>'required'
             
         );
         $validator = Validator::make(request()->all(), $rules);
@@ -79,6 +82,7 @@ class PostController extends Controller
         $post->title = $allData['title'];
         $post->description = $allData['description'];
         $post->content = $allData['content'];
+        $post->category_id = $allData['category_id'];
         $post->image = $image;
         $post->save();
         return response()->json("Updated", 200);

@@ -23,6 +23,7 @@ Route::post('/register',[UserController::class,'registration']);
 //Route::get('/try',[UserController::class,'try']);
 Route::post('/login',[UserController::class,'login']);
 Route::post('/createcategory',[CategoryController::class,'createCategory']);
+Route::get('/getcategories',[CategoryController::class,'getCategories']);
 Route::post('/editcategory/{categoryId}',[CategoryController::class,'editcategory']);
 Route::delete('/deletecategory/{categoryId}',[CategoryController::class,'deletecategory']);
 Route::post('/createpost',[PostController::class,'createPost']);
