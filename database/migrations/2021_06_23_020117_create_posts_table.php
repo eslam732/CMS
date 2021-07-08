@@ -14,11 +14,17 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('title');
             $table->string('description');
+            
             $table->text('content');
-            $table->integer('category_id');
+            
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('creator_id');
+            //$table->foreignId('category_id')->references('id')->on('categories');
+
             $table->string('image');
             $table->timestamps();
             

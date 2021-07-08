@@ -58,4 +58,51 @@ class UserController extends Controller
         }
         return response()->json($resArr, 200);
     }
+    public function getUsers()
+    {
+        if(!auth()->user()->isAdmin()){
+            return response()->json(['error' => 'UnAuthorized'], 203);
+        }
+        return response()->json(['users'=>User::all()],200);
+    }
+    public function makeAdmin($userId)
+    {
+        //$allData=request()->all();
+        if(!auth()->user()->isAdmin()){
+            return response()->json(['error' => 'UnAuthorized'], 203);
+        }
+        $user=User::find($userId);
+     if($user->role=='admin'){
+         return response()->json(['message' => 'this user is already an admin'], 203);
+     }
+     $user->role='admin';
+     $user->save();
+     return response()->json(['message' => 'user is now an an admin'], 200);
+    }
+    public function getUserProfile()
+    {   $id=auth()->user()->id;
+        $user=User::find($id);
+        return response()->json(['message' => $user], 200);
+    }
+    public function editUserProfile()
+    {   $id=auth()->user()->id;
+        $user=User::find($id);
+        $validation = Validator::make(request()->all(), [
+            'name' => 'required',
+            
+            'about' => 'required',
+           
+
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 202);
+        }
+        $allData=request()->all();
+        $user->update([
+            'name' => $allData['name'],
+            'about' => $allData['about'],
+        ]);
+
+        return response()->json(['message' => $user], 200);
+    }
 }

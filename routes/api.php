@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\tagsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,9 @@ Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/register',[UserController::class,'registration']);
 //Route::get('/try',[UserController::class,'try']);
 Route::post('/login',[UserController::class,'login']);
-Route::post('/createcategory',[CategoryController::class,'createCategory']);
-Route::get('/getcategories',[CategoryController::class,'getCategories']);
-Route::post('/editcategory/{categoryId}',[CategoryController::class,'editcategory']);
-Route::delete('/deletecategory/{categoryId}',[CategoryController::class,'deletecategory']);
-Route::post('/createpost',[PostController::class,'createPost']);
-Route::get('/posts',[PostController::class,'getPosts']);
-Route::post('/editpost/{postId}',[PostController::class,'editPost']);
-Route::delete('/deletepost/{postId}',[PostController::class,'deletePost']);
-Route::get('/trashedposts',[PostController::class,'getTrashed']);
-Route::post('/restorepost/{postId}',[PostController::class,'restorePost']);
+Route::middleware('auth:api')->get('/allusers',[UserController::class,'getUsers']);
+Route::middleware('auth:api')->post('/makeadmin/{userId}',[UserController::class,'makeAdmin']);
+Route::middleware('auth:api')->get('/userprofile',[UserController::class,'getUserProfile']);
+Route::middleware('auth:api')->post('/editprofile',[UserController::class,'editUserProfile']);
+
+
